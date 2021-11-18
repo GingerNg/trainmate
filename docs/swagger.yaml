@@ -1,0 +1,49 @@
+info:
+  contact: {}
+paths:
+  /demo/formpost:
+    post:
+      consumes:
+      - application/json
+      description: FormPost demo
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: FormPost
+      tags:
+      - example
+  /demo/hello:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: ping example
+      tags:
+      - example
+  /demo/user/name/action:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: UserNameAction
+      tags:
+      - example
+swagger: "2.0"
