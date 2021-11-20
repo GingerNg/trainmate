@@ -67,7 +67,7 @@ func (m *Job) FindByName() Job {
 	return result
 }
 
-func (m *Job) FindByExpid() []Job {
+func (m *Job) FindAll() []Job {
 	var filterMap = make(map[string]interface{})
 	if m.ExpId != "" {
 		filterMap["expid"] = m.ExpId

@@ -9,16 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateJob(c *gin.Context) {
+func CreateDataset(c *gin.Context) {
 
-	var params request.JobParams
+	var params request.DatasetParams
 	err := c.ShouldBindJSON(&params) // bind
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败! bind error", err.Error())
 		return
 	}
-	job, err := Service.CreateJob(&params)
+	job, err := Service.CreateDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -29,7 +29,7 @@ func CreateJob(c *gin.Context) {
 	response.WriteHttpOkMsgs(c, job.Id, "")
 }
 
-func UpdateJob(c *gin.Context) {
+func UpdateDataset(c *gin.Context) {
 
 	var params request.JobParams
 	err := c.ShouldBindJSON(&params) // bind
@@ -49,8 +49,8 @@ func UpdateJob(c *gin.Context) {
 	response.WriteHttpOkMsgs(c, job.Id, job)
 }
 
-func QueryJob(c *gin.Context) {
-	var params request.JobQueryParams
+func QueryDataset(c *gin.Context) {
+	var params request.DatasetQueryParams
 	err := c.ShouldBind(&params) // bind
 
 	fmt.Println(params)
@@ -59,7 +59,7 @@ func QueryJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败!", err.Error())
 		return
 	}
-	job, err := Service.QueryJob(&params)
+	job, err := Service.QueryDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -70,15 +70,15 @@ func QueryJob(c *gin.Context) {
 	response.WriteHttpOkMsgs(c, job.Id, job)
 }
 
-func QueryJobs(c *gin.Context) {
-	var params request.JobQueryParams
+func QueryDatasets(c *gin.Context) {
+	var params request.DatasetQueryParams
 	err := c.ShouldBind(&params) // bind
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, bind error!", err.Error())
 		return
 	}
-	jobs := Service.QueryJobs(&params)
+	jobs := Service.QueryDatasets(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, query error!", err.Error())
@@ -89,15 +89,15 @@ func QueryJobs(c *gin.Context) {
 	response.WriteHttpOkMsgs(c, "", jobs)
 }
 
-func DeleteJob(c *gin.Context) {
-	var params request.JobQueryParams
+func DeleteDataset(c *gin.Context) {
+	var params request.DatasetQueryParams
 	err := c.ShouldBindJSON(&params) // bind
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())
 		return
 	}
-	err = Service.DeleteJob(&params)
+	err = Service.DeleteDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())

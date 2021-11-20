@@ -8,5 +8,5 @@ import (
 func main() {
 	drivers.Init()
 	router := initialize.RegisterRouter()
-	router.Run(":8000")
+	router.Run(":8666")
 }

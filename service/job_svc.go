@@ -1,7 +1,7 @@
 package service
 
 import (
-	"errors"
+	"fmt"
 	"trainmate/models"
 	"trainmate/models/request"
 	"trainmate/utils"
@@ -20,7 +20,8 @@ func CreateJob(params *request.JobParams) (models.Job, error) {
 		job.InsertOne()
 		return job, nil
 	} else {
-		return job, errors.New("duplicate")
+		fmt.Println("duplicate") // warning
+		return res, nil
 	}
 }
 
@@ -50,9 +51,9 @@ func QueryJob(params *request.JobQueryParams) (models.Job, error) {
 	}
 }
 
-func QueryJobByExpid(params *request.JobQueryParams) []models.Job {
+func QueryJobs(params *request.JobQueryParams) []models.Job {
 	job := models.Job{ExpId: params.ExpId}
-	results := job.FindByExpid()
+	results := job.FindAll()
 	return results
 }
 

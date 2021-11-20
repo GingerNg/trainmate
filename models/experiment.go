@@ -56,3 +56,8 @@ func (m *Experiment) FindAll() []Experiment {
 	}
 	return results
 }
+
+func (m *Experiment) DeleteOne() error {
+	_, err := dao.NewMgo(exprimentTblName).Delete("id", m.Id)
+	return err
+}

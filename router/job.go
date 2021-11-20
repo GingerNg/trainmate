@@ -14,9 +14,7 @@ func InitJobRouter(Router *gin.RouterGroup) {
 		JobRouter.POST("update", Controller.UpdateJob)
 
 		JobRouter.GET("query", Controller.QueryJob)
-
-		// JobRouter.OPTIONS("querybyexpid", Controller.QueryJobByExp)
-		JobRouter.GET("querybyexpid", Controller.QueryJobByExp)
+		JobRouter.GET("queries", Controller.QueryJobs)
 
 		JobRouter.POST("delete", Controller.DeleteJob)
 

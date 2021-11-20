@@ -7,13 +7,13 @@ import (
 )
 
 func InitExperimentRouter(Router *gin.RouterGroup) {
-	JobRouter := Router.Group("experiment") // .Use(middleware.OperationRecord())
+	ExpRouter := Router.Group("experiment") // .Use(middleware.OperationRecord())
 	{
-		JobRouter.POST("insert", Controller.CreateExp)
-
+		ExpRouter.POST("insert", Controller.CreateExp)
 		// JobRouter.POST("update", Controller.UpdateJob)
-
-		JobRouter.GET("query", Controller.QueryExps)
+		ExpRouter.GET("query", Controller.QueryExp)
+		ExpRouter.GET("queries", Controller.QueryExps)
+		ExpRouter.POST("delete", Controller.DeleteExp)
 
 	}
 }

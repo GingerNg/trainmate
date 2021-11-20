@@ -16,9 +16,13 @@ func RegisterRouter() *gin.Engine {
 	apiVer := "/api/v1"
 	privateGroup := r.Group(apiVer)
 	Router.InitUserRouter(privateGroup)
-	Router.InitDemoRouter(privateGroup)
-	Router.InitJobRouter(privateGroup)
+	// Router.InitDemoRouter(privateGroup)
+
+	Router.InitTaskRouter(privateGroup)
+	Router.InitDatasetRouter(privateGroup)
 	Router.InitExperimentRouter(privateGroup)
+	Router.InitJobRouter(privateGroup)
+
 	Docs.SwaggerInfo.BasePath = apiVer
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

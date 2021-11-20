@@ -25,7 +25,6 @@ type Mgo struct {
 // 	value interface{}
 // }
 
-// NewTrainer
 func NewMgo(CollName string) *Mgo {
 	mgo := new(Mgo)
 	mgo.collection = drivers.MgoClient.Database(drivers.MgoDbName).Collection(CollName)
