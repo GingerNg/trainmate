@@ -7,26 +7,26 @@ import (
 	"trainmate/models"
 )
 
-type TaskHandler interface {
-	InsertOne(models.Task) interface{}
-	FindOne(string) models.Task
-	FindByName(string) models.Task
-	FindAll() []models.Task
+type DatasetHandler interface {
+	InsertOne(models.Dataset) interface{}
+	FindOne(string) models.Dataset
+	FindByName(string) models.Dataset
+	FindAll() []models.Dataset
 	DeleteOne(string) error
 }
 
 // ***************************** mongo *********************
-type MongoTaskHandler struct {
+type MongoDatasetHandler struct {
 	TblName string
 }
 
-// "Task"
-func NewMongoTaskHandler(tblName string) *MongoTaskHandler {
-	return &MongoTaskHandler{TblName: tblName}
+// "Dataset"
+func NewMongoDatasetHandler(tblName string) *MongoDatasetHandler {
+	return &MongoDatasetHandler{TblName: tblName}
 }
 
 // 插入单个
-func (m *MongoTaskHandler) InsertOne(obj models.Task) (insertResult interface{}) {
+func (m *MongoDatasetHandler) InsertOne(obj models.Dataset) (insertResult interface{}) {
 	insertResult = dao.NewMgo(m.TblName).InsertOne(obj)
 	// if err != nil {
 	// 	fmt.Println(err)
@@ -34,24 +34,24 @@ func (m *MongoTaskHandler) InsertOne(obj models.Task) (insertResult interface{})
 	return
 }
 
-func (m *MongoTaskHandler) FindOne(id string) models.Task {
-	var result models.Task
+func (m *MongoDatasetHandler) FindOne(id string) models.Dataset {
+	var result models.Dataset
 	dao.NewMgo(m.TblName).FindOne("Id", id).Decode(&result)
 	return result
 }
 
-func (m *MongoTaskHandler) FindByName(name string) models.Task {
-	var result models.Task
+func (m *MongoDatasetHandler) FindByName(name string) models.Dataset {
+	var result models.Dataset
 	dao.NewMgo(m.TblName).FindOne("name", name).Decode(&result)
 	return result
 }
 
-func (m *MongoTaskHandler) FindAll() []models.Task {
-	var results []models.Task
+func (m *MongoDatasetHandler) FindAll() []models.Dataset {
+	var results []models.Dataset
 	var filterMap = make(map[string]interface{})
 	cursor := dao.NewMgo(m.TblName).FindMany(filterMap)
 	for cursor.Next(context.Background()) {
-		ud := &models.Task{}
+		ud := &models.Dataset{}
 		err := cursor.Decode(ud)
 		results = append(results, *ud)
 		if err != nil {
@@ -62,7 +62,7 @@ func (m *MongoTaskHandler) FindAll() []models.Task {
 	return results
 }
 
-func (m *MongoTaskHandler) DeleteOne(id string) error {
+func (m *MongoDatasetHandler) DeleteOne(id string) error {
 	_, err := dao.NewMgo(m.TblName).Delete("id", id)
 	return err
 }

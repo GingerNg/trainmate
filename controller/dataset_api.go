@@ -18,7 +18,7 @@ func CreateDataset(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job保存失败! bind error", err.Error())
 		return
 	}
-	job, err := Service.CreateDataset(&params)
+	job, err := Service.DatasetSvc.CreateDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -29,25 +29,25 @@ func CreateDataset(c *gin.Context) {
 	response.WriteHttpOkMsgs(c, job.Id, "")
 }
 
-func UpdateDataset(c *gin.Context) {
+// func UpdateDataset(c *gin.Context) {
 
-	var params request.JobParams
-	err := c.ShouldBindJSON(&params) // bind
+// 	var params request.JobParams
+// 	err := c.ShouldBindJSON(&params) // bind
 
-	if err != nil {
-		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
-		return
-	}
-	job, err := Service.UpdateJob(&params)
+// 	if err != nil {
+// 		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
+// 		return
+// 	}
+// 	job, err := Service.DatasetSvc(&params)
 
-	if err != nil {
-		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
-		return
-	}
-	// logger.Infof("文件上传耗时: %s", time.Since(start))
-	// utils.WriteHttpOkMsgs(c, id, "")
-	response.WriteHttpOkMsgs(c, job.Id, job)
-}
+// 	if err != nil {
+// 		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
+// 		return
+// 	}
+// 	// logger.Infof("文件上传耗时: %s", time.Since(start))
+// 	// utils.WriteHttpOkMsgs(c, id, "")
+// 	response.WriteHttpOkMsgs(c, job.Id, job)
+// }
 
 func QueryDataset(c *gin.Context) {
 	var params request.DatasetQueryParams
@@ -59,7 +59,7 @@ func QueryDataset(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败!", err.Error())
 		return
 	}
-	job, err := Service.QueryDataset(&params)
+	job, err := Service.DatasetSvc.QueryDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -78,7 +78,7 @@ func QueryDatasets(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, bind error!", err.Error())
 		return
 	}
-	jobs := Service.QueryDatasets(&params)
+	jobs := Service.DatasetSvc.QueryDatasets(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, query error!", err.Error())
@@ -97,7 +97,7 @@ func DeleteDataset(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())
 		return
 	}
-	err = Service.DeleteDataset(&params)
+	err = Service.DatasetSvc.DeleteDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())

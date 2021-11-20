@@ -18,7 +18,7 @@ func CreateTask(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job保存失败! bind error", err.Error())
 		return
 	}
-	obj, err := Service.CreateTask(&params)
+	obj, err := Service.TaskSvc.CreateTask(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -59,7 +59,7 @@ func QueryTask(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "task查询失败!", err.Error())
 		return
 	}
-	job, err := Service.QueryTask(&params)
+	job, err := Service.TaskSvc.QueryTask(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "task query error!", err.Error())
@@ -80,7 +80,7 @@ func QueryTasks(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "tasks query 失败!", err.Error())
 		return
 	}
-	objs := Service.QueryTasks(&params)
+	objs := Service.TaskSvc.QueryTasks(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "tasks query 失败!", err.Error())
@@ -99,7 +99,7 @@ func DeleteTask(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "task 删除失败!", err.Error())
 		return
 	}
-	err = Service.DeleteTask(&params)
+	err = Service.TaskSvc.DeleteTask(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "task 删除失败!", err.Error())

@@ -9,13 +9,13 @@ import (
 )
 
 type TaskService struct {
-	handler handlers.TaskHandler
+	handler handlers.MongoHandler
 }
 
 var TaskSvc TaskService
 
 func NewTaskService() *TaskService {
-	return &TaskService{handler: handlers.NewMongoTaskHandler("Task")}
+	return &TaskService{handler: *handlers.NewMongoHandler("Task")}
 }
 
 func init() {
@@ -26,7 +26,8 @@ func (m *TaskService) CreateTask(params *request.TaskParams) (models.Task, error
 	obj := models.Task{
 		Id:   utils.GetUUID(),
 		Name: params.Name}
-	res := m.handler.FindByName(obj.Name)
+	// queryObj := models.Task{}
+	res, _ := m.handler.FindByName(obj.Name).(models.Task)
 	if res.Id == "" {
 		m.handler.InsertOne(obj)
 		return obj, nil
@@ -37,12 +38,13 @@ func (m *TaskService) CreateTask(params *request.TaskParams) (models.Task, error
 }
 
 func (m *TaskService) QueryTask(params *request.TaskQueryParams) (models.Task, error) {
-	result := m.handler.FindOne(params.Id)
+	result := m.handler.FindOne(params.Id).(models.Task)
 	return result, nil
 }
 
 func (m *TaskService) QueryTasks(params *request.TaskQueryParams) []models.Task {
-	results := m.handler.FindAll()
+	queryObjs := []models.Task{}
+	results, _ := m.handler.FindAll(queryObjs).([]models.Task)
 	return results
 }
 

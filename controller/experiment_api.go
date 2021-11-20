@@ -18,7 +18,7 @@ func CreateExp(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "exp保存失败!", err.Error())
 		return
 	}
-	exp, err := Service.CreateExp(&params)
+	exp, err := Service.ExpSvc.CreateExp(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "exp保存失败!", err.Error())
@@ -39,7 +39,7 @@ func QueryExp(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "exp 查询失败!", err.Error())
 		return
 	}
-	job, err := Service.QueryExp(&params)
+	job, err := Service.ExpSvc.QueryExp(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "exp query error!", err.Error())
@@ -58,7 +58,7 @@ func QueryExps(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "exp查询失败!", err.Error())
 		return
 	}
-	exps := Service.QueryExps(&params)
+	exps := Service.ExpSvc.QueryExps(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "exp保存失败!", err.Error())
@@ -77,7 +77,7 @@ func DeleteExp(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())
 		return
 	}
-	err = Service.DeleteExp(&params)
+	err = Service.ExpSvc.DeleteExp(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())

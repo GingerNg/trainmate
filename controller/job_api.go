@@ -18,7 +18,7 @@ func CreateJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job保存失败! bind error", err.Error())
 		return
 	}
-	job, err := Service.CreateJob(&params)
+	job, err := Service.JobSvc.CreateJob(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -38,7 +38,7 @@ func UpdateJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
 		return
 	}
-	job, err := Service.UpdateJob(&params)
+	job, err := Service.JobSvc.UpdateJob(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
@@ -59,7 +59,7 @@ func QueryJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败!", err.Error())
 		return
 	}
-	job, err := Service.QueryJob(&params)
+	job, err := Service.JobSvc.QueryJob(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -78,7 +78,7 @@ func QueryJobs(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, bind error!", err.Error())
 		return
 	}
-	jobs := Service.QueryJobs(&params)
+	jobs := Service.JobSvc.QueryJobs(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, query error!", err.Error())
@@ -97,7 +97,7 @@ func DeleteJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())
 		return
 	}
-	err = Service.DeleteJob(&params)
+	err = Service.JobSvc.DeleteJob(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())
