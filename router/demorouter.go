@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitDemoRouter(Router *gin.RouterGroup) {
+func RegisterDemoRouter(Router *gin.RouterGroup) {
 	DemoRouter := Router.Group("demo") // .Use(middleware.OperationRecord())
 	{
 		DemoRouter.GET("hello", Controller.Helloworld)

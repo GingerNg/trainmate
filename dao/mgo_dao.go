@@ -15,10 +15,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// TrainerModel
 type Mgo struct {
 	collection *mongo.Collection
 }
+
+// func NewMgoDb(DbName string) *mongo.Database {
+// 	db := drivers.MgoClient.Database(drivers.MgoDbName)
+// 	return db
+// }
 
 // type KV struct {
 // 	key   string

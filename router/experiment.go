@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitExperimentRouter(Router *gin.RouterGroup) {
+func RegisterExperimentRouter(Router *gin.RouterGroup) {
 	ExpRouter := Router.Group("experiment") // .Use(middleware.OperationRecord())
 	{
 		ExpRouter.POST("insert", Controller.CreateExp)

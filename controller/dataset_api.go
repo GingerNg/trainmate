@@ -6,6 +6,8 @@ import (
 	"trainmate/models/response"
 	Service "trainmate/service"
 
+	"trainmate/initialize"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +20,7 @@ func CreateDataset(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job保存失败! bind error", err.Error())
 		return
 	}
-	job, err := Service.DatasetSvc.CreateDataset(&params)
+	job, err := initialize.DatasetSvc.CreateDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())

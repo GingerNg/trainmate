@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitTaskRouter(Router *gin.RouterGroup) {
+func RegisterTaskRouter(Router *gin.RouterGroup) {
 	TaskRouter := Router.Group("task") // .Use(middleware.OperationRecord())
 	{
 		TaskRouter.POST("insert", Controller.CreateTask)

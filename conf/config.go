@@ -2,9 +2,10 @@ package conf
 
 import (
 	"fmt"
-	"github.com/revel/config"
 	"os"
 	"path"
+
+	"github.com/revel/config"
 )
 
 var GlobalConfig *Config
@@ -15,11 +16,43 @@ const (
 	DATA_PATH        = "/data/images"
 )
 
+type dbConfig struct {
+	Host                    string `env:"WAKAPI_DB_HOST"`
+	Port                    uint   `env:"WAKAPI_DB_PORT"`
+	User                    string `env:"WAKAPI_DB_USER"`
+	Password                string `env:"WAKAPI_DB_PASSWORD"`
+	Name                    string `default:"wakapi_db.db" env:"WAKAPI_DB_NAME"`
+	Dialect                 string `yaml:"-"`
+	Charset                 string `default:"utf8mb4" env:"WAKAPI_DB_CHARSET"`
+	Type                    string `yaml:"dialect" default:"sqlite3" env:"WAKAPI_DB_TYPE"`
+	MaxConn                 uint   `yaml:"max_conn" default:"2" env:"WAKAPI_DB_MAX_CONNECTIONS"`
+	Ssl                     bool   `default:"false" env:"WAKAPI_DB_SSL"`
+	AutoMigrateFailSilently bool   `yaml:"automigrate_fail_silently" default:"false" env:"WAKAPI_DB_AUTOMIGRATE_FAIL_SILENTLY"`
+}
+
+func IsDev(env string) bool {
+	return env == "dev" || env == "development"
+}
+
+func (c *Config) IsDev() bool {
+	return IsDev(c.Env)
+}
+
 type Config struct {
+	Env     string `default:"dev" env:"ENVIRONMENT"`
+	Version string `yaml:"-"`
+	// App      appConfig
+	// Security securityConfig
+	Db       dbConfig
+	UseMongo bool
+	// Server   serverConfig
+	// Sentry   sentryConfig
+	// Mail     mailConfig
+
 	// server config
-	__tcp_bind    string //tcp监听地址和端口
-	__server_name string // 服务名
-	__data_path   string
+	__tcp_bind     string //tcp监听地址和端口
+	__server_name  string // 服务名
+	__data_path    string
 	__history_path string
 
 	// log config
@@ -30,7 +63,7 @@ type Config struct {
 	__log_format        string // 日志format
 	__log_expire_days   int    // 日志保存天数
 
-	__store_mode        string
+	__store_mode string
 
 	// ucloud - ufile
 	__ufile_publickey  string

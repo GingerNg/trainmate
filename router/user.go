@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitUserRouter(Router *gin.RouterGroup) {
+func RegisterUserRouter(Router *gin.RouterGroup) {
 	UserRouter := Router.Group("vue-element-admin/user") // .Use(middleware.OperationRecord())
 	{
 		UserRouter.POST("login", Controller.UserLogin)

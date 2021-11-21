@@ -20,7 +20,6 @@ type MongoExperimentHandler struct {
 	TblName string
 }
 
-// "Experiment"
 func NewMongoExperimentHandler(tblName string) *MongoExperimentHandler {
 	return &MongoExperimentHandler{TblName: tblName}
 }

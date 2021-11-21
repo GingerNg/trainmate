@@ -2,11 +2,11 @@ package main
 
 import (
 	"trainmate/drivers"
-	initialize "trainmate/initialize"
+	Router "trainmate/router"
 )
 
 func main() {
 	drivers.Init()
-	router := initialize.RegisterRouter()
+	router := Router.RegisterRouter()
 	router.Run(":8666")
 }

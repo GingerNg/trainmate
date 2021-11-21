@@ -1,9 +1,10 @@
-package initialize
+package router
 
 import (
 	Docs "trainmate/docs"
 	"trainmate/middlewares"
-	Router "trainmate/router"
+
+	// Router "trainmate/router"
 
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -15,13 +16,12 @@ func RegisterRouter() *gin.Engine {
 	r.Use(middlewares.Cors())
 	apiVer := "/api/v1"
 	privateGroup := r.Group(apiVer)
-	Router.InitUserRouter(privateGroup)
-	// Router.InitDemoRouter(privateGroup)
-
-	Router.InitTaskRouter(privateGroup)
-	Router.InitDatasetRouter(privateGroup)
-	Router.InitExperimentRouter(privateGroup)
-	Router.InitJobRouter(privateGroup)
+	RegisterUserRouter(privateGroup)
+	RegisterDemoRouter(privateGroup)
+	RegisterTaskRouter(privateGroup)
+	RegisterDatasetRouter(privateGroup)
+	RegisterExperimentRouter(privateGroup)
+	RegisterJobRouter(privateGroup)
 
 	Docs.SwaggerInfo.BasePath = apiVer
 

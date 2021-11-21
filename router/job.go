@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitJobRouter(Router *gin.RouterGroup) {
+func RegisterJobRouter(Router *gin.RouterGroup) {
 	JobRouter := Router.Group("job") // .Use(middleware.OperationRecord())
 	{
 		JobRouter.POST("insert", Controller.CreateJob)

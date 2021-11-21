@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitDatasetRouter(Router *gin.RouterGroup) {
+func RegisterDatasetRouter(Router *gin.RouterGroup) {
 	TaskRouter := Router.Group("dataset") // .Use(middleware.OperationRecord())
 	{
 		TaskRouter.POST("insert", Controller.CreateDataset)
