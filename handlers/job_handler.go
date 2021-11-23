@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"trainmate/dao"
 	"trainmate/models"
+
+	"gorm.io/gorm"
 )
 
 type JobHandler interface {
@@ -14,6 +16,70 @@ type JobHandler interface {
 	FindByNameExpid(string, string) models.Job
 	FindAll() []models.Job
 	DeleteOne(string) error
+}
+
+// ***************************** sqlite *******************
+type RdbJobHandler struct {
+	// config *config.Config
+	db *gorm.DB
+}
+
+func NewRdbJobHandler(db *gorm.DB) *RdbJobHandler {
+	return &RdbJobHandler{db: db}
+}
+
+func (r *RdbJobHandler) InsertOne(obj models.Job) (insertResult interface{}) {
+	// insertResult = dao.NewMgo(m.TblName).InsertOne(obj)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	result := r.db.Create(&obj)
+	if err := result.Error; err != nil {
+		fmt.Println(err)
+		return obj
+	}
+	return obj
+}
+
+func (r *RdbJobHandler) FindOne(id string) models.Job {
+	var obj models.Job
+	if err := r.db.Where(&models.Job{Id: id}).First(&obj).Error; err != nil {
+		return obj
+	}
+	return obj
+}
+
+func (r *RdbJobHandler) FindByNameExpid(name string, id string) models.Job {
+	var obj models.Job
+	if err := r.db.Where(&models.Job{Name: name, Id: id}).First(&obj).Error; err != nil {
+		fmt.Println(err)
+		return obj
+	}
+	return obj
+}
+
+func (r *RdbJobHandler) FindByName(name string) models.Job {
+	var obj models.Job
+	if err := r.db.Where(&models.Job{Name: name}).First(&obj).Error; err != nil {
+		fmt.Println(err)
+		return obj
+	}
+	return obj
+}
+
+func (r *RdbJobHandler) FindAll() []models.Job {
+	var objs []models.Job
+	if err := r.db.Find(&objs).Error; err != nil {
+		return objs
+	}
+	return objs
+}
+
+func (r *RdbJobHandler) DeleteOne(id string) error {
+	// _, err := dao.NewMgo(m.TblName).Delete("id", id)
+	return r.db.
+		Where("id = ?", id).
+		Delete(models.Job{}).Error
 }
 
 // ***************************** mongo *********************

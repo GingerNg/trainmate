@@ -17,7 +17,7 @@ func RegisterRouter() *gin.Engine {
 	apiVer := "/api/v1"
 	privateGroup := r.Group(apiVer)
 	RegisterUserRouter(privateGroup)
-	RegisterDemoRouter(privateGroup)
+	// RegisterDemoRouter(privateGroup)
 	RegisterTaskRouter(privateGroup)
 	RegisterDatasetRouter(privateGroup)
 	RegisterExperimentRouter(privateGroup)

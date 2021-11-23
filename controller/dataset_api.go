@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"trainmate/models/request"
 	"trainmate/models/response"
-	Service "trainmate/service"
 
 	"trainmate/initialize"
 
@@ -61,7 +60,7 @@ func QueryDataset(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败!", err.Error())
 		return
 	}
-	job, err := Service.DatasetSvc.QueryDataset(&params)
+	job, err := initialize.DatasetSvc.QueryDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -80,7 +79,7 @@ func QueryDatasets(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, bind error!", err.Error())
 		return
 	}
-	jobs := Service.DatasetSvc.QueryDatasets(&params)
+	jobs := initialize.DatasetSvc.QueryDatasets(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, query error!", err.Error())
@@ -99,7 +98,7 @@ func DeleteDataset(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())
 		return
 	}
-	err = Service.DatasetSvc.DeleteDataset(&params)
+	err = initialize.DatasetSvc.DeleteDataset(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job删除失败!", err.Error())

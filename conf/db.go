@@ -37,6 +37,20 @@ A quick note to myself including some clarifications about time zones.
 	- Implicit intervals are tricky, too, as they are generated on the server, but still have to respect the user's tz, as `today` is different for a user in Cali and one in Karlsruhe
 */
 
+type dbConfig struct {
+	Host                    string `env:"WAKAPI_DB_HOST"`
+	Port                    uint   `env:"WAKAPI_DB_PORT"`
+	User                    string `env:"WAKAPI_DB_USER"`
+	Password                string `env:"WAKAPI_DB_PASSWORD"`
+	Name                    string `default:"wakapi_db.db" env:"WAKAPI_DB_NAME"`
+	Dialect                 string `yaml:"-"`
+	Charset                 string `default:"utf8mb4" env:"WAKAPI_DB_CHARSET"`
+	Type                    string `yaml:"dialect" default:"sqlite3" env:"WAKAPI_DB_TYPE"`
+	MaxConn                 uint   `yaml:"max_conn" default:"2" env:"WAKAPI_DB_MAX_CONNECTIONS"`
+	Ssl                     bool   `default:"false" env:"WAKAPI_DB_SSL"`
+	AutoMigrateFailSilently bool   `yaml:"automigrate_fail_silently" default:"false" env:"WAKAPI_DB_AUTOMIGRATE_FAIL_SILENTLY"`
+}
+
 func (c *dbConfig) GetDialector() gorm.Dialector {
 	switch c.Dialect {
 	case SQLDialectMysql:
@@ -84,4 +98,13 @@ func postgresConnectionString(config *dbConfig) string {
 
 func sqliteConnectionString(config *dbConfig) string {
 	return config.Name
+}
+
+// ************************* mongodb *****************
+type DB struct {
+	Host     string `env:"WAKAPI_DB_HOST"`
+	Port     uint   `env:"WAKAPI_DB_PORT"`
+	User     string `env:"WAKAPI_DB_USER"`
+	Password string `env:"WAKAPI_DB_PASSWORD"`
+	Name     string `default:"wakapi_db.db" env:"WAKAPI_DB_NAME"`
 }

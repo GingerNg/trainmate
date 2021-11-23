@@ -2,9 +2,9 @@ package controller
 
 import (
 	"fmt"
+	"trainmate/initialize"
 	"trainmate/models/request"
 	"trainmate/models/response"
-	Service "trainmate/service"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +18,7 @@ func CreateTask(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job保存失败! bind error", err.Error())
 		return
 	}
-	obj, err := Service.TaskSvc.CreateTask(&params)
+	obj, err := initialize.TaskSvc.CreateTask(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -59,7 +59,7 @@ func QueryTask(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "task查询失败!", err.Error())
 		return
 	}
-	job, err := Service.TaskSvc.QueryTask(&params)
+	job, err := initialize.TaskSvc.QueryTask(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "task query error!", err.Error())
@@ -80,7 +80,7 @@ func QueryTasks(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "tasks query 失败!", err.Error())
 		return
 	}
-	objs := Service.TaskSvc.QueryTasks(&params)
+	objs := initialize.TaskSvc.QueryTasks(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "tasks query 失败!", err.Error())
@@ -99,7 +99,7 @@ func DeleteTask(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "task 删除失败!", err.Error())
 		return
 	}
-	err = Service.TaskSvc.DeleteTask(&params)
+	err = initialize.TaskSvc.DeleteTask(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "task 删除失败!", err.Error())

@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 	"time"
-	conf "trainmate/conf"
+	"trainmate/models"
 
 	"github.com/emvi/logbuch"
 	"gorm.io/gorm"
@@ -12,12 +12,11 @@ import (
 )
 
 var (
-	db     *gorm.DB
-	config *conf.Config
+	db *gorm.DB
 )
 
 func InitORM() {
-	config = &conf.Config{}
+	// config = &conf.Config{}
 	if !config.UseMongo {
 		// Set up GORM
 		gormLogger := logger.New(
@@ -32,10 +31,18 @@ func InitORM() {
 		// Connect to database
 		var err error
 		db, err = gorm.Open(config.Db.GetDialector(), &gorm.Config{Logger: gormLogger})
+		if err != nil {
+			panic(err)
+		}
 		if config.Db.Dialect == "sqlite3" {
 			db.Raw("PRAGMA foreign_keys = ON;")
 			db.DisableForeignKeyConstraintWhenMigrating = true
 		}
+
+		db.AutoMigrate(&models.Task{})
+		db.AutoMigrate(&models.Experiment{})
+		db.AutoMigrate(&models.Job{})
+		db.AutoMigrate(&models.Dataset{})
 
 		if config.IsDev() {
 			db = db.Debug()
@@ -47,10 +54,12 @@ func InitORM() {
 			logbuch.Error(err.Error())
 			logbuch.Fatal("could not connect to database")
 		}
-		defer sqlDb.Close()
+		// defer sqlDb.Close()
 
 		// Migrate database schema
 		// migrations.Run(db, config)
+		// 迁移 schema
+
 	}
 
 }

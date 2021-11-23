@@ -14,12 +14,9 @@ type DatasetService struct {
 
 var DatasetSvc DatasetService
 
-func NewDatasetService() *DatasetService {
-	return &DatasetService{handler: handlers.NewMongoDatasetHandler("Dataset")}
-}
-
-func init() {
-	DatasetSvc = *NewDatasetService()
+func NewDatasetService(datasetHandler handlers.DatasetHandler) *DatasetService {
+	// return &DatasetService{handler: handlers.NewMongoDatasetHandler("Dataset")}
+	return &DatasetService{handler: datasetHandler}
 }
 
 func (m *DatasetService) CreateDataset(params *request.DatasetParams) (models.Dataset, error) {

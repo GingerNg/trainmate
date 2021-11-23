@@ -1,6 +1,8 @@
 package initialize
 
-import "trainmate/handlers"
+import (
+	"trainmate/handlers"
+)
 
 var (
 	TaskHdl    handlers.TaskHandler
@@ -16,9 +18,13 @@ func InitHandler() {
 		ExpHdl = handlers.NewMongoExperimentHandler("Experiment")
 		JobHdl = handlers.NewMongoJobHandler("Job")
 
-	} else if config.Db.Type == "sqlite" {
+	} else {
 		TaskHdl = handlers.NewRdbTaskHandler(db)
+		DatasetHdl = handlers.NewRdbDatasetHandler(db)
+		ExpHdl = handlers.NewRdbExperimentHandler(db)
+		JobHdl = handlers.NewRdbJobHandler(db)
 	}
+
 	// Init Handler
 
 }

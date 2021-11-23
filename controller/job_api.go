@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"trainmate/initialize"
 	"trainmate/models/request"
 	"trainmate/models/response"
 	Service "trainmate/service"
@@ -18,7 +19,7 @@ func CreateJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job保存失败! bind error", err.Error())
 		return
 	}
-	job, err := Service.JobSvc.CreateJob(&params)
+	job, err := initialize.JobSvc.CreateJob(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -38,7 +39,7 @@ func UpdateJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
 		return
 	}
-	job, err := Service.JobSvc.UpdateJob(&params)
+	job, err := initialize.JobSvc.UpdateJob(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job更新失败!", err.Error())
@@ -59,7 +60,7 @@ func QueryJob(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败!", err.Error())
 		return
 	}
-	job, err := Service.JobSvc.QueryJob(&params)
+	job, err := initialize.JobSvc.QueryJob(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job保存失败!", err.Error())
@@ -78,7 +79,7 @@ func QueryJobs(c *gin.Context) {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, bind error!", err.Error())
 		return
 	}
-	jobs := Service.JobSvc.QueryJobs(&params)
+	jobs := initialize.JobSvc.QueryJobs(&params)
 
 	if err != nil {
 		response.WriteHttpErrMsg(c, 999, "job查询失败, query error!", err.Error())

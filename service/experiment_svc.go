@@ -14,12 +14,8 @@ type ExpService struct {
 
 var ExpSvc ExpService
 
-func NewExpService() *ExpService {
-	return &ExpService{handler: handlers.NewMongoExperimentHandler("Experiment")}
-}
-
-func init() {
-	ExpSvc = *NewExpService()
+func NewExpService(expHandler handlers.ExperimentHandler) *ExpService {
+	return &ExpService{handler: expHandler}
 }
 
 func (m *ExpService) CreateExp(params *request.ExperimentParams) (models.Experiment, error) {

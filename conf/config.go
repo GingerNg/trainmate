@@ -10,25 +10,16 @@ import (
 
 var GlobalConfig *Config
 
+// 常量
 const (
 	CONFIG_FILE_PATH = "conf/config.ini" //"/opt/project/DBM/conf/config.ini"
 	DEFAULT_TCP_BIND = ":8080"
 	DATA_PATH        = "/data/images"
-)
 
-type dbConfig struct {
-	Host                    string `env:"WAKAPI_DB_HOST"`
-	Port                    uint   `env:"WAKAPI_DB_PORT"`
-	User                    string `env:"WAKAPI_DB_USER"`
-	Password                string `env:"WAKAPI_DB_PASSWORD"`
-	Name                    string `default:"wakapi_db.db" env:"WAKAPI_DB_NAME"`
-	Dialect                 string `yaml:"-"`
-	Charset                 string `default:"utf8mb4" env:"WAKAPI_DB_CHARSET"`
-	Type                    string `yaml:"dialect" default:"sqlite3" env:"WAKAPI_DB_TYPE"`
-	MaxConn                 uint   `yaml:"max_conn" default:"2" env:"WAKAPI_DB_MAX_CONNECTIONS"`
-	Ssl                     bool   `default:"false" env:"WAKAPI_DB_SSL"`
-	AutoMigrateFailSilently bool   `yaml:"automigrate_fail_silently" default:"false" env:"WAKAPI_DB_AUTOMIGRATE_FAIL_SILENTLY"`
-}
+	SQLDialectMysql    = "mysql"
+	SQLDialectPostgres = "postgres"
+	SQLDialectSqlite   = "sqlite3"
+)
 
 func IsDev(env string) bool {
 	return env == "dev" || env == "development"
@@ -104,6 +95,12 @@ func newGlobalConfig() (*Config, error) {
 		return GlobalConfig, err
 	}
 
+	GlobalConfig.Db.Dialect = "sqlite3"
+	GlobalConfig.Db.Name = "mate_db.db"
+
+	GlobalConfig.UseMongo, _ = cfg.Bool("server", "use_mongo")
+	fmt.Println(GlobalConfig.UseMongo)
+
 	GlobalConfig.__server_name, _ = cfg.String("server", "name")
 	GlobalConfig.__data_path, _ = cfg.String("server", "data_path")
 	GlobalConfig.__history_path, _ = cfg.String("server", "history_path")
@@ -139,7 +136,7 @@ func newGlobalConfig() (*Config, error) {
 	return GlobalConfig, nil
 }
 
-func GetGlobalConfig() *Config {
+func GetGlobalConfig() *Config { // 单例
 	if GlobalConfig != nil {
 		return GlobalConfig
 	}

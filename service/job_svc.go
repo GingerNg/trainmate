@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"time"
 	"trainmate/handlers"
 	"trainmate/models"
 	"trainmate/models/request"
@@ -14,21 +15,21 @@ type JobService struct {
 
 var JobSvc JobService
 
-func NewJobServicee() *JobService {
-	return &JobService{handler: handlers.NewMongoJobHandler("Job")}
-}
-
-func init() {
-	JobSvc = *NewJobServicee()
+func NewJobServicee(jobHandler handlers.JobHandler) *JobService {
+	return &JobService{handler: jobHandler}
 }
 
 func (m *JobService) CreateJob(params *request.JobParams) (models.Job, error) {
-	obj := models.Job{Id: utils.GetUUID(),
-		Name:    params.Name,
-		ExpId:   params.ExpId,
-		Metrics: params.Metrics,
-		Config:  params.Config,
-		History: params.History,
+	obj := models.Job{
+		Id:         utils.GetUUID(),
+		Name:       params.Name,
+		ExpId:      params.ExpId,
+		Metrics:    params.Metrics,
+		Config:     params.Config,
+		History:    params.History,
+		Createtime: models.CustomTime(time.Now()),
+		Updatetime: models.CustomTime(time.Now()),
+		Status:     1,
 	}
 	res := m.handler.FindByName(obj.Name)
 	if res.Id == "" {

@@ -10,9 +10,8 @@ var (
 )
 
 func InitService() {
-	// Init Handler
-	TaskSvc = service.NewTaskService()
-	DatasetSvc = service.NewDatasetService()
-	ExpSvc = service.NewExpService()
-	JobSvc = service.NewJobServicee()
+	TaskSvc = service.NewTaskService(TaskHdl)
+	DatasetSvc = service.NewDatasetService(DatasetHdl)
+	ExpSvc = service.NewExpService(ExpHdl)
+	JobSvc = service.NewJobServicee(JobHdl)
 }

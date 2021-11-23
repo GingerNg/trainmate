@@ -54,5 +54,6 @@ task:
 
 ## todo
 # sqlite
+# config  from yml
 
 

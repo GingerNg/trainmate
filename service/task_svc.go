@@ -14,13 +14,14 @@ type TaskService struct {
 
 var TaskSvc TaskService
 
-func NewTaskService() *TaskService {
-	return &TaskService{handler: handlers.NewMongoTaskHandler("Task")}
+func NewTaskService(taskHandler handlers.TaskHandler) *TaskService {
+	// return &TaskService{handler: handlers.NewMongoTaskHandler("Task")}
+	return &TaskService{handler: taskHandler}
 }
 
-func init() {
-	TaskSvc = *NewTaskService()
-}
+// func init() {
+// 	TaskSvc = *NewTaskService()
+// }
 
 func (m *TaskService) CreateTask(params *request.TaskParams) (models.Task, error) {
 	obj := models.Task{
