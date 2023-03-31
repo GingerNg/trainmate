@@ -1,0 +1,11 @@
+{
+    "python.testing.pytestArgs": [
+        "tests",
+        // "testing"
+        "--capture=no",  　　// 表示控制台可以print输出
+        // "-q", 　　 //表示简化输出
+// 　　　　  "-disable-warnings"  　　// 表示不显示警告信息
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
